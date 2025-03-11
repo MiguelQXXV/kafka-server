@@ -4,6 +4,8 @@ services:
   zookeeper:
     image: "bitnami/zookeeper:latest"
     container_name: "zookeeper"
+    networks:
+      - kafka_network
     ports:
       - "2181:2181"
     environment:
@@ -31,6 +33,8 @@ services:
   kafdrop:
     image: obsidiandynamics/kafdrop
     container_name: kafdrop
+    networks:
+      - kafka_network 
     depends_on:
       - kafka
     ports:
@@ -41,6 +45,8 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    networks:
+      - kafka_network 
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
@@ -72,6 +78,8 @@ services:
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanager
+    networks:
+      - kafka_network
     ports:
       - "9093:9093"
     volumes:
