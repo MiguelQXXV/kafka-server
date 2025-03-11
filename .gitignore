@@ -1,0 +1,8 @@
+*.pub
+github-actions-key
+github-actions-test-kafka-key
+
+.env
+*.env
+.env.sample
+.env.local

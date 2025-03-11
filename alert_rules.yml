@@ -1,0 +1,29 @@
+groups:
+  - name: kafka_alerts
+    rules:
+      - alert: KafkaDown
+        expr: up{job="kafka"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka is Down"
+          description: "Kafka has been down for more than 1 minute. Check the container logs."
+
+      - alert: HighKafkaLatency
+        expr: rate(kafka_network_requestmetrics_requestlatency_avg[5m]) > 500
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Kafka Latency"
+          description: "Kafka requests are taking longer than expected (>500ms)."
+
+      - alert: HighFailedMessages
+        expr: increase(kafka_server_brokertopicmetrics_failedfetchrequest_rate[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Kafka Failed Messages"
+          description: "More than 100 failed fetch requests in the last 5 minutes."
