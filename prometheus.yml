@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: "kafka"
     static_configs:
-      - targets: ["kafka:29092"]
+      - targets: ["jmx-exporter:5556"]
 
   - job_name: "node_exporter"
     static_configs:
