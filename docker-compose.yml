@@ -62,6 +62,8 @@ services:
       - "9308:9308"
     command:
       - "--kafka.server=kafka:9092"
+    networks:
+      - kafka_network
     depends_on:
       - kafka
       
